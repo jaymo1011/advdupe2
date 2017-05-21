@@ -5,7 +5,7 @@
 	
 	Author: TB
 	
-	Version: 1.0
+	Version: 1.1
 ]]
 
 require "duplicator"
@@ -784,11 +784,12 @@ end
 local function IsAllowed(Player, Class, EntityClass)
 	if ( scripted_ents.GetMember( Class, "DoNotDuplicate" ) ) then return false end
 
-	if ( IsValid( Player ) and !Player:IsAdmin()) then
+	if ( IsValid( Player ) and !Player:IsSuperAdmin()) then
 		if !duplicator.IsAllowed(Class) then return false end
 		if ( !scripted_ents.GetMember( Class, "Spawnable" ) and not EntityClass ) then return false end
 		if ( scripted_ents.GetMember( Class, "AdminOnly" ) ) then return false end
 	end
+	if not AdvDupe2.CanDupe(Player, Class) then return false end
 	return true
 end
 
@@ -796,7 +797,7 @@ local function CreateEntityFromTable(EntTable, Player)
 
 	local EntityClass = duplicator.FindEntityClass( EntTable.Class )
 	if not IsAllowed(Player, EntTable.Class, EntityClass) then
-		Player:ChatPrint([[Entity Class Black listed, "]]..EntTable.Class..[["]]) 
+		Player:ChatPrint([[You are not allowed to spawn a ]]..EntTable.Class) 
 		return nil 
 	end
 

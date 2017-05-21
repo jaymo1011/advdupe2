@@ -1,6 +1,7 @@
 AdvDupe2 = {
-	Version = "1.1.0",
-	Revision = 51
+	Version = "1.2.0",
+	Fork = "Jaymo",
+	Revision = 52
 }
 
 AdvDupe2.DataFolder = "advdupe2" --name of the folder in data where dupes will be saved
@@ -12,6 +13,7 @@ include "advdupe2/sh_codec.lua"
 include "advdupe2/sv_file.lua"
 include "advdupe2/sv_networking.lua"
 include "advdupe2/sv_misc.lua"
+include "advdupe2/sv_blocking.lua"
 
 AddCSLuaFile "autorun/client/advdupe2_cl_init.lua"
 AddCSLuaFile "advdupe2/cl_networking.lua"
