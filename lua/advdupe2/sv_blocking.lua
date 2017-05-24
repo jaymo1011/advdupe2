@@ -10,9 +10,8 @@
 
 require "duplicator"
 
-if not file.Exists("advdupe2/EntBlacklist.txt", "DATA") then file.Write("advdupe2/EntBlacklist.txt", util.TableToJSON({["prop_physics"] = "user"})) end
-local ENTITY = FindMetaTable("Entity")
-local OnTheSafeSide = true
+if not file.Exists("advdupe2/EntBlacklist.txt", "DATA") then file.Write("advdupe2/EntBlacklist.txt", util.TableToJSON({["prop_physics"] = "user"})) else AdvDupe2.blacklistFile = util.JSONToTable(file.Read("advdupe2/EntBlacklist.txt", "DATA")) end
+local OnTheSafeSide = false
 
 local function UpdateBlacklistFile(todo, ent, rank)
 
@@ -51,19 +50,6 @@ local function UpdateBlacklistFile(todo, ent, rank)
 end
 
 --[[
-	Name:	Ent:AdvDupe2SetCanDupe
-	Desc:	Sets if an entity can be duped or not.
-	Params:	<string/boolean> todo, <string> rank
-	Return:	<boolean> success
-]]
-function ENTITY:AdvDupe2DupeAllowed(todo, rank)
-
-	local lrank = rank or nil
-	UpdateBlacklistFile(todo, self, lrank)
-
-end
-
---[[
 	Name:	AdvDupe2DupeAllowed
 	Desc:	Sets if an entity can be duped or not.
 	Params:	<string/boolean> todo, <entity> ent, <string> rank
@@ -85,7 +71,7 @@ end
 function AdvDupe2.CanDupe(ply, entclass)
 
 	if not SERVER then return end
-	local blacklistFile = util.JSONToTable(file.Read("advdupe2/EntBlacklist.txt", "DATA"))
+	local blacklistFile = AdvDupe2.blacklistFile --util.JSONToTable(file.Read("advdupe2/EntBlacklist.txt", "DATA"))
 
 	if blacklistFile[entclass] then
 		if blacklistFile[entclass] == "all" then return false end

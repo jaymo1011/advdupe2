@@ -789,7 +789,7 @@ local function IsAllowed(Player, Class, EntityClass)
 		if ( !scripted_ents.GetMember( Class, "Spawnable" ) and not EntityClass ) then return false end
 		if ( scripted_ents.GetMember( Class, "AdminOnly" ) ) then return false end
 	end
-	if not AdvDupe2.CanDupe(Player, Class) then return false end
+	if not AdvDupe2.CanDupe(Player, EntityClass) then return false end
 	return true
 end
 
